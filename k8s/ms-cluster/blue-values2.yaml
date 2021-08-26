@@ -1,0 +1,6 @@
+image:
+  repository: ms-cluster-js
+  pullPolicy: Never
+  tag: "v2"
+
+isCanary: false

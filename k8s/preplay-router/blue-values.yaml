@@ -1,0 +1,7 @@
+image:
+  repository: preplay-router-js
+  pullPolicy: Never
+  tag: "v1"
+
+isCanary: false
+depIdVarVal: blue

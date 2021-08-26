@@ -1,0 +1,51 @@
+routes:
+  - name: msrouter
+    prefix: /ms-router/blue/
+    rewriteTo: '/'
+    destination:
+      primary:
+        host: ms-router
+        port: 80
+        hasSecondary: false
+    headerValidationEnabled: true
+    apiAuthHeader: x-auth-ssai-endpoint
+    apiAuthHeaderDefaultVal: eC1hdXRoLXNzYWktZW5kcG9pbnQ=
+    patchCronRule: "*/1 * * * *"
+    envVarVals:
+      awsSecretName: ssai-gamma-ap-southeast-1
+      awsSecretRegion: "ap-southeast-1"
+  - name: msrouter2
+    prefix: /ms-router/green/
+    rewriteTo: '/'
+    destination:
+      primary:
+        host: ms-router-canary
+        port: 80
+        hasSecondary: false
+    headerValidationEnabled: true
+    apiAuthHeader: x-auth-ssai-endpoint
+    apiAuthHeaderDefaultVal: eC1hdXRoLXNzYWktZW5kcG9pbnQ=
+    patchCronRule: "*/1 * * * *"
+    envVarVals:
+      awsSecretName: ssai-gamma-ap-southeast-1
+      awsSecretRegion: "ap-southeast-1"
+  - name: preplay-router
+    prefix: /ssai/
+    rewriteTo: '/'
+    destination:
+      primary:
+        host: preplay-router
+        port: 80
+        hasSecondary: true
+        weight: 50
+      secondary:
+        host: preplay-router-canary
+        port: 80
+        weight: 50
+    headerValidationEnabled: true
+    apiAuthHeader: x-auth-ssai-endpoint
+    apiAuthHeaderDefaultVal: eC1hdXRoLXNzYWktZW5kcG9pbnQ=
+    patchCronRule: "*/1 * * * *"
+    envVarVals:
+      awsSecretName: ssai-gamma-ap-southeast-1
+      awsSecretRegion: "ap-southeast-1"
